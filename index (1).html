@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Спасите абонемент — интерактив</title>
+<style>
+:root{--bg:#0b1020;--card:#141b31;--card2:#1b2542;--text:#f5f7ff;--muted:#aeb7d0;--accent:#7c5cff;--good:#37d39a;--bad:#ff6b7a;--line:#2b3656}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:linear-gradient(135deg,#0b1020,#15112b);color:var(--text);min-height:100vh}
+.container{max-width:1050px;margin:auto;padding:28px 18px 60px}.hero{padding:30px 0 20px}.eyebrow{color:#a99aff;text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:700}.hero h1{font-size:clamp(32px,6vw,58px);margin:10px 0 8px}.hero p{color:var(--muted);font-size:18px;max-width:760px;line-height:1.55}
+.card{background:rgba(20,27,49,.92);border:1px solid var(--line);border-radius:22px;padding:24px;margin:16px 0;box-shadow:0 15px 40px rgba(0,0,0,.2)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.stat{background:var(--card2);padding:16px;border-radius:16px}.stat b{display:block;font-size:25px}.stat span{color:var(--muted);font-size:13px}
+h2{margin:0 0 8px}h3{margin:0 0 6px}.muted{color:var(--muted)}.small{font-size:14px;color:var(--muted);line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:16px}
+button{font:inherit;color:var(--text);background:var(--card2);border:1px solid var(--line);border-radius:15px;padding:16px;text-align:left;cursor:pointer;min-height:62px;transition:.15s}
+button:hover{transform:translateY(-1px);border-color:#8c7cff}button.selected{border:2px solid var(--accent);background:#28204f}
+.result{margin-top:15px;padding:15px;border-radius:14px;background:#0f1528;border-left:4px solid var(--accent);line-height:1.5;min-height:48px}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#252e4b;color:#dfe4f7;font-size:12px;margin:3px}
+.progress{height:10px;background:#252e4b;border-radius:99px;overflow:hidden;margin:8px 0 18px}.bar{height:100%;background:var(--accent);width:0;transition:.25s}
+.votes{display:grid;grid-template-columns:1fr 1fr;gap:14px}.vote{background:var(--card2);padding:18px;border-radius:16px}.vote b{font-size:28px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.actions button{min-height:48px;text-align:center}.primary{background:var(--accent);border-color:var(--accent)}.good{border-color:var(--good)}
+.hidden{display:none}.final{background:linear-gradient(135deg,#241d50,#16243f);border-color:#6552d8}
+.timer{font-size:42px;font-weight:800;letter-spacing:.04em}.timerrow{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
+@media(max-width:600px){.card{padding:18px}.votes{grid-template-columns:1fr}.hero p{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="hero">
+<div class="eyebrow">Фокус-группа · Бизнес-кейс «Формат»</div>
+<h1>🏋️ Спасите абонемент</h1>
+<p>Интерактив для двух групп: найдите скрытый барьер новичка, разберите критический момент и выберите единственную инициативу, на которую стоит потратить ограниченный бюджет.</p>
+</header>
+
+<section class="card">
+<div class="stats">
+<div class="stat"><b>150 000</b><span>население города</span></div>
+<div class="stat"><b>60%</b><span>не продлевают после 3 месяцев</span></div>
+<div class="stat"><b>1</b><span>изменение можно внедрить</span></div>
+<div class="stat"><b>25–45</b><span>целевая аудитория</span></div>
+</div>
+</section>
+
+<section class="card">
+<h2>Раунд 1 · Что на самом деле мешает?</h2>
+<p class="small">Каждая группа сначала выбирает ответ молча. Затем объясняет его за 30 секунд.</p>
+<div class="grid" id="barriers">
+<button data-key="time">⏰ Нехватка времени</button>
+<button data-key="money">💳 Слишком дорого</button>
+<button data-key="skill">😬 Страх выглядеть некомпетентным</button>
+<button data-key="bored">🥱 Скука и отсутствие мотивации</button>
+</div>
+<div class="result" id="barrierResult">Сделайте выбор.</div>
+</section>
+
+<section class="card">
+<h2>Раунд 2 · «Один взгляд»</h2>
+<p class="small">Новичок после работы подходит к тренажёру. Там уже занимается опытный посетитель. Новичок ждёт, получает странный взгляд, не решается спросить, сколько подходов осталось, и уходит. Позже он снова вспоминает этот момент и чувствует себя чужим.</p>
+<div class="grid" id="moments">
+<button data-key="tired">Он просто устал.</button>
+<button data-key="social">Он почувствовал себя чужим.</button>
+<button data-key="equipment">Он не знал тренажёр.</button>
+<button data-key="price">Его не устроила цена.</button>
+</div>
+<div class="result" id="momentResult">Что произошло на самом деле?</div>
+</section>
+
+<section class="card">
+<h2>Раунд 3 · Max-Diff</h2>
+<p class="small">Правило: можно оставить только одну инициативу. Выберите <b>BEST</b> — ту, что сильнее всего заставит новичка продолжить ходить.</p>
+<div class="grid" id="initiatives">
+<button data-key="A"><b>A · Старт без стресса</b><br><span class="small">Зона новичков + QR-видео на тренажёрах.</span></button>
+<button data-key="B"><b>B · Анти-выгорание</b><br><span class="small">12 посещений и возможность заморозки.</span></button>
+<button data-key="C"><b>C · Детская комната</b><br><span class="small">Няня на 1,5 часа вечером.</span></button>
+<button data-key="D"><b>D · Первые 30 дней</b><br><span class="small">Чат новичков, куратор-тренер и поддержка.</span></button>
+<button data-key="E"><b>E · Расширенный SPA</b><br><span class="small">Дополнительная процедура после тренировки.</span></button>
+</div>
+<div class="result" id="initiativeResult">Ваш выбор появится здесь.</div>
+</section>
+
+<section class="card">
+<h2>⏱️ Раунд 4 · Защита решения</h2>
+<p class="small">У каждой группы есть 30 секунд. Ответьте: <b>«Почему именно ваше решение уберёт скрытый барьер, а не просто сделает зал приятнее?»</b></p>
+<div class="timerrow"><div class="timer" id="timer">00:30</div><div class="actions"><button class="primary" id="start">▶ Старт</button><button id="stop">⏸ Пауза</button><button id="resetTimer">↻ Сброс</button></div></div>
+</section>
+
+<section class="card">
+<h2>🗳️ Финальное голосование</h2>
+<p class="small">После двух защит аудитория голосует. Это не «правильность ответа», а способность группы убедительно связать решение со скрытым барьером.</p>
+<div class="votes">
+<div class="vote"><span class="badge">Группа 1</span><b id="v1">0</b><div class="progress"><div class="bar" id="p1"></div></div><button class="good" id="vote1">Голос за группу 1</button></div>
+<div class="vote"><span class="badge">Группа 2</span><b id="v2">0</b><div class="progress"><div class="bar" id="p2"></div></div><button class="good" id="vote2">Голос за группу 2</button></div>
+</div>
+<div class="actions"><button id="resetVotes">Сбросить голосование</button></div>
+</section>
+
+<section class="card final">
+<h2>🏆 Финальный вывод</h2>
+<p>В кейсе стандартные причины («нет времени», «дорого», «переехал») не объясняют весь механизм оттока. Транскрипт показывает более глубокий барьер: новичок боится оценки, не чувствует себя своим и избегает повторения негативного социального опыта.</p>
+<p><b>Ключевой инсайт:</b> функциональная безопасность и чувство принадлежности могут быть важнее дополнительного комфорта или скидки.</p>
+<p><b>Возможное решение из кейса:</b> программа онбординга «Первые 10 дней без стресса» — выделенная зона новичков, подсказки по тренажёрам и сопровождение тренера.</p>
+</section>
+<footer>Интерактив создан для учебного кейса «Фитнес-центр Формат»</footer>
+</div>
+
+<script>
+const barrierText={
+time:'«Нет времени» — стандартная отговорка из кейса. Но транскрипт показывает, что за ней может стоять более глубокая причина.',
+money:'«Дорого» указано среди стандартных причин ухода, однако конкретный эпизод в транскрипте связан не с ценой.',
+skill:'🎯 Скрытый барьер: страх некомпетентности и социального отторжения. Один неприятный микромомент способен закрепить ощущение «я здесь чужой».',
+bored:'Скука может существовать, но в данном транскрипте центральным является ощущение чужого и страх оценки.'
+};
+const momentText={
+tired:'Усталость была обстоятельством после работы, но она не объясняет последующее избегание зала.',
+social:'🔎 Именно здесь находится скрытый барьер: человек интерпретировал взгляд как сигнал «ты чужой» и затем начал избегать повторения этого чувства.',
+equipment:'Незнание оборудования может усиливать неуверенность, но в эпизоде ключевым оказался социальный сигнал.',
+price:'Цена в описанном эпизоде не была причиной ухода.'
+};
+const initiativeText={
+A:'A решает часть проблемы компетентности: новичку проще понять оборудование и чувствовать себя увереннее.',
+B:'B решает проблему гибкости времени и риска пропусков, но не напрямую социальное отторжение.',
+C:'C может быть особенно полезна родителям, однако это более узкое решение.',
+D:'D напрямую создаёт сопровождение, поддержку и чувство принадлежности — это хорошо связано со скрытым барьером кейса.',
+E:'E повышает комфорт, но не устраняет базовую тревогу новичка: «я здесь чужой и не знаю, что делать».'
+};
+function setup(id,result,texts){document.querySelectorAll('#'+id+' button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#'+id+' button').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');document.getElementById(result).textContent=texts[btn.dataset.key]}));}
+setup('barriers','barrierResult',barrierText);setup('moments','momentResult',momentText);setup('initiatives','initiativeResult',initiativeText);
+
+let seconds=30,interval=null;
+function renderTimer(){document.getElementById('timer').textContent='00:'+String(seconds).padStart(2,'0')}
+document.getElementById('start').onclick=()=>{if(interval||seconds<=0)return;interval=setInterval(()=>{seconds--;renderTimer();if(seconds<=0){clearInterval(interval);interval=null;alert('⏰ Время вышло! Переходите к защите решения.')}},1000)};
+document.getElementById('stop').onclick=()=>{clearInterval(interval);interval=null};
+document.getElementById('resetTimer').onclick=()=>{clearInterval(interval);interval=null;seconds=30;renderTimer()};renderTimer();
+
+let votes=[0,0];
+function renderVotes(){document.getElementById('v1').textContent=votes[0];document.getElementById('v2').textContent=votes[1];let total=votes[0]+votes[1];document.getElementById('p1').style.width=(total?votes[0]/total*100:0)+'%';document.getElementById('p2').style.width=(total?votes[1]/total*100:0)+'%'}
+document.getElementById('vote1').onclick=()=>{votes[0]++;renderVotes()};document.getElementById('vote2').onclick=()=>{votes[1]++;renderVotes()};document.getElementById('resetVotes').onclick=()=>{votes=[0,0];renderVotes()};renderVotes();
+</script>
+</body>
+</html>
